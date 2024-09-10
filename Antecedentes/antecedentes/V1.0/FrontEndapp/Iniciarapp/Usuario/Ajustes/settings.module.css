@@ -1,0 +1,124 @@
+/* Página de Ajustes */
+.settingsPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Header Global */
+.globalHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 0.5rem 2rem;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #ffffff;
+    height: calc(100vh - 60px); /* Ajusta la altura al viewport */
+    width: 220px;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    height: calc(100vh - 60px);
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar h2, .sidebar h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 0.75rem;
+}
+
+.sidebarItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebarItem:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebarItem .icon {
+    margin-right: 0.5rem;
+}
+
+/* Main Content */
+.settingsContent {
+    margin-left: 220px;
+    padding: 1.5rem;
+    background-color: #fafafa;
+    flex: 1;
+    padding-top: 1rem;
+}
+
+.settingsSection {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.settingsSection h2 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.settingsSection p {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.settingsSection .btnPrimary {
+    background-color: #D33B47;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.settingsSection .btnPrimary:hover {
+    background-color: #b0293c;
+}
+
+/* Iconos */
+.icon {
+    margin-right: 0.5rem;
+    color: #D33B47;
+    vertical-align: middle;
+    font-size: 1rem;
+}

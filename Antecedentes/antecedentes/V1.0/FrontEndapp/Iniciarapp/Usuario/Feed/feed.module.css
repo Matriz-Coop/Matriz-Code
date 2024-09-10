@@ -1,0 +1,252 @@
+/* Feed.module.css */
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Contenedor de feed con sidebar izquierdo y principal */
+  .feedContainer {
+    display: flex;
+    flex: 1;
+  }
+  
+  /* Sidebar izquierdo */
+  .sidebar {
+    width: 16rem; /* Ajusta el ancho según tus necesidades */
+    background-color: #ffffff; /* Color blanco para el fondo */
+    color: #333; /* Color de texto más oscuro */
+    padding: 1rem;
+    font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  }
+  
+  /* Elemento de la barra lateral */
+  .sidebarItem {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .sidebarItem:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
+    border-radius: 0.25rem;
+  }
+  
+  /* Contenedor principal del feed */
+  .feedMain {
+    flex: 1;
+    padding: 1rem;
+    background-color: #f5f5f5;
+  }
+  
+  /* Caja para crear publicación */
+  .postBox {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+  }
+  
+  /* Área para texto de publicación */
+  .textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    resize: none;
+  }
+  
+  /* Contenedor de iconos para agregar archivos */
+  .postAttachments {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .iconButton {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Botón de publicar */
+  .publishButton {
+    background-color: #e53e3e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .publishButton:hover {
+    background-color: #c53030;
+  }
+  
+  /* Barra de búsqueda */
+  .searchBar {
+    margin-bottom: 1rem;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ddd;
+  }
+  
+  /* Contenedor de publicaciones */
+  .posts {
+    margin-top: 1rem;
+  }
+  
+  /* Publicación individual */
+  .post {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+  }
+  
+  /* Encabezado de la publicación */
+  .postHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .username {
+    font-size: 1rem; /* Tamaño de fuente más pequeño */
+    font-weight: bold;
+  }
+  
+  .date {
+    color: #777;
+    margin-left: 0.5rem;
+  }
+  
+  /* Contenido de la publicación */
+  .postImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .postContent {
+    margin-bottom: 0.5rem;
+  }
+  
+  .postLink {
+    color: #3182ce;
+    text-decoration: none;
+  }
+  
+  .postLink:hover {
+    text-decoration: underline;
+  }
+  
+  .poll {
+    background-color: #f7f7f7;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Acciones de la publicación */
+  .postActions {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+  
+  .actionButton {
+    display: flex;
+    align-items: center;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+  
+  .actionButton:hover {
+    color: #e53e3e;
+  }
+  
+  /* Iconos de acciones */
+  .actionIcon {
+    margin-right: 0.25rem;
+  }
+  
+  /* Comentarios */
+  .comments {
+    margin-top: 1rem;
+  }
+  
+  .comment {
+    background-color: #f7f7f7;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .commentUsername {
+    font-weight: bold;
+  }
+  
+  .commentContent {
+    margin-bottom: 0.25rem;
+  }
+  
+  .commentDate {
+    color: #777;
+    font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  }
+  
+  /* Área de comentarios */
+  .commentTextarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+    resize: none;
+  }
+  
+  /* Sidebar derecho */
+  .sidebarRight {
+    width: 16rem; /* Ajusta el ancho según tus necesidades */
+    background-color: #f9f9f9;
+    padding: 1rem;
+  }
+  
+  /* Sección dentro del sidebar derecho */
+  .recommended, .trending {
+    margin-bottom: 1.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1rem; /* Tamaño de fuente más pequeño */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
