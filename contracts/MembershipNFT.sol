@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+//import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MembershipNFT is ERC721, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;
+    //using Counters for Counters.Counter;
+    //Counters.Counter private tokenIdCounter;
+
+    // TINE QUE INICIALIZARSE EN UNO PARA QUE EL PRIMER NFT MINTEADO NO TENGA ID CERO. ///
+    uint public tokenIdCounter = 1;
 
     // Definir los tipos de membresías
     enum MembershipType { None, Basic, Intermediate, Advanced }
@@ -22,38 +25,39 @@ contract MembershipNFT is ERC721, Ownable {
     event MembershipMinted(address indexed recipient, uint256 membershipType);
     event MembershipRenewed(address indexed owner, uint256 membershipType);
 
-    constructor() ERC721("MembershipNFT", "MNFT") {}
+    constructor() ERC721("MembershipNFT", "MNFT") Ownable(msg.sender)
+    {}
 
     // Función para mintear (crear) el NFT de membresía
     function mintMembership(address recipient, uint256 membershipType) external payable {
-        require(membershipType >= 1 && membershipType <= 3, "Tipo de membresía inválido");
+        require((membershipType >= 1) && (membershipType <= 3), "Tipo de membresia invalido");
 
         if (membershipType == uint256(MembershipType.Basic)) {
-            require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresía básica");
+            require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresia basica");
         } else if (membershipType == uint256(MembershipType.Intermediate)) {
-            require(msg.value == INTERMEDIATE_PRICE, "Pago incorrecto para la membresía intermedia");
+            require(msg.value == INTERMEDIATE_PRICE, "Pago incorrecto para la membresia intermedia");
         } else if (membershipType == uint256(MembershipType.Advanced)) {
-            require(msg.value == ADVANCED_PRICE, "Pago incorrecto para la membresía avanzada");
+            require(msg.value == ADVANCED_PRICE, "Pago incorrecto para la membresia avanzada");
         }
 
-        uint256 newTokenId = _tokenIdCounter.current();
+        uint256 newTokenId = tokenIdCounter;
         _safeMint(recipient, newTokenId);
         membershipTypeByTokenId[newTokenId] = MembershipType(membershipType);
         membershipExpiration[recipient] = block.timestamp + 30 days; // Membresía válida por 30 días
-        _tokenIdCounter.increment();
+        tokenIdCounter++;
 
         emit MembershipMinted(recipient, membershipType);
     }
 
     // Función para renovar la membresía
     function renewMembership(address owner, uint256 membershipType) external payable {
-        require(membershipExpiration[owner] > 0, "No tienes una membresía activa");
+        require(membershipExpiration[owner] > 0, "No tienes una membresia activa");
         if (membershipType == uint256(MembershipType.Basic)) {
-            require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresía básica");
+            require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresia basica");
         } else if (membershipType == uint256(MembershipType.Intermediate)) {
-            require(msg.value == INTERMEDIATE_PRICE, "Pago incorrecto para la membresía intermedia");
+            require(msg.value == INTERMEDIATE_PRICE, "Pago incorrecto para la membresia intermedia");
         } else if (membershipType == uint256(MembershipType.Advanced)) {
-            require(msg.value == ADVANCED_PRICE, "Pago incorrecto para la membresía avanzada");
+            require(msg.value == ADVANCED_PRICE, "Pago incorrecto para la membresia avanzada");
         }
 
         membershipExpiration[owner] += 30 days; // Extiende 30 días más la membresía
