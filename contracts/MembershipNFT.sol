@@ -3,34 +3,34 @@ pragma solidity 0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-//import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MembershipNFT is ERC721, Ownable {
-    //using Counters for Counters.Counter;
-    //Counters.Counter private tokenIdCounter;
-
-    // TINE QUE INICIALIZARSE EN UNO PARA QUE EL PRIMER NFT MINTEADO NO TENGA ID CERO. ///
     uint public tokenIdCounter = 1;
 
-    // Definir los tipos de membresías
     enum MembershipType { None, Basic, Intermediate, Advanced }
-    mapping(uint256 => MembershipType) public membershipTypeByTokenId;
-    mapping(address => uint256) public membershipExpiration;
+    
+    struct MembershipData {
+        MembershipType membershipType;
+        uint256 startDate;
+        uint256 expirationDate;
+    }
 
-    // Precios de las membresías
-    uint256 public constant BASIC_PRICE = 0.01 ether;
-    uint256 public constant INTERMEDIATE_PRICE = 0.05 ether;
-    uint256 public constant ADVANCED_PRICE = 0.1 ether;
+    mapping(uint256 => MembershipData) public membershipDataByTokenId;
+    mapping(address => uint256) public membershipTokenIdByAddress;
 
-    event MembershipMinted(address indexed recipient, uint256 membershipType);
-    event MembershipRenewed(address indexed owner, uint256 membershipType);
+    uint256 public constant BASIC_PRICE = 0.00333 ether;
+    uint256 public constant INTERMEDIATE_PRICE = 0.0333 ether;
+    uint256 public constant ADVANCED_PRICE = 0.0667 ether;
 
-    constructor() ERC721("MembershipNFT", "MNFT") Ownable(msg.sender)
-    {}
+    event MembershipMinted(address indexed recipient, uint256 membershipType, uint256 tokenId);
+    event MembershipRenewed(address indexed owner, uint256 membershipType, uint256 tokenId);
 
-    // Función para mintear (crear) el NFT de membresía
-    function mintMembership(address recipient, uint256 membershipType) external payable {
-        require((membershipType >= 1) && (membershipType <= 3), "Tipo de membresia invalido");
+    constructor() ERC721("MembershipNFT", "MNFT") Ownable(msg.sender) {
+        // No se requiere más configuración en el constructor
+    }
+
+    function mintMembership(uint256 membershipType) external payable {
+        require(membershipType >= 1 && membershipType <= 3, "Tipo de membresia invalido");
 
         if (membershipType == uint256(MembershipType.Basic)) {
             require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresia basica");
@@ -41,17 +41,26 @@ contract MembershipNFT is ERC721, Ownable {
         }
 
         uint256 newTokenId = tokenIdCounter;
-        _safeMint(recipient, newTokenId);
-        membershipTypeByTokenId[newTokenId] = MembershipType(membershipType);
-        membershipExpiration[recipient] = block.timestamp + 30 days; // Membresía válida por 30 días
+        _safeMint(msg.sender, newTokenId);
+
+        membershipDataByTokenId[newTokenId] = MembershipData(
+            MembershipType(membershipType),
+            block.timestamp,
+            block.timestamp + 30 days
+        );
+
+        membershipTokenIdByAddress[msg.sender] = newTokenId;
+
         tokenIdCounter++;
 
-        emit MembershipMinted(recipient, membershipType);
+        emit MembershipMinted(msg.sender, membershipType, newTokenId);
     }
 
-    // Función para renovar la membresía
-    function renewMembership(address owner, uint256 membershipType) external payable {
-        require(membershipExpiration[owner] > 0, "No tienes una membresia activa");
+    function renewMembership(uint256 membershipType) external payable {
+        uint256 tokenId = membershipTokenIdByAddress[msg.sender];
+        require(tokenId != 0, "No tienes una membresia activa");
+        MembershipData storage membership = membershipDataByTokenId[tokenId];
+
         if (membershipType == uint256(MembershipType.Basic)) {
             require(msg.value == BASIC_PRICE, "Pago incorrecto para la membresia basica");
         } else if (membershipType == uint256(MembershipType.Intermediate)) {
@@ -60,20 +69,25 @@ contract MembershipNFT is ERC721, Ownable {
             require(msg.value == ADVANCED_PRICE, "Pago incorrecto para la membresia avanzada");
         }
 
-        membershipExpiration[owner] += 30 days; // Extiende 30 días más la membresía
+        membership.expirationDate += 30 days;
 
-        emit MembershipRenewed(owner, membershipType);
+        emit MembershipRenewed(msg.sender, membershipType, tokenId);
     }
 
-    // Función para verificar si una membresía está activa
     function isMembershipActive(address owner) external view returns (bool) {
-        return membershipExpiration[owner] > block.timestamp;
+        uint256 tokenId = membershipTokenIdByAddress[owner];
+        return tokenId != 0 && membershipDataByTokenId[tokenId].expirationDate > block.timestamp;
     }
 
-    // Función para verificar el tipo de membresía que tiene un usuario
-    function getMembershipType(uint256 tokenId) external view returns (uint256) {
-        // msg.sender is tokenId owner.
-        // ownerOf()
-        return uint256(membershipTypeByTokenId[tokenId]);
+    function getMembershipType(address owner) external view returns (uint256) {
+        uint256 tokenId = membershipTokenIdByAddress[owner];
+        require(tokenId != 0, "El usuario no tiene membresia");
+        return uint256(membershipDataByTokenId[tokenId].membershipType);
+    }
+
+    function getMembershipStartDate(address owner) external view returns (uint256) {
+        uint256 tokenId = membershipTokenIdByAddress[owner];
+        require(tokenId != 0, "El usuario no tiene membresia");
+        return membershipDataByTokenId[tokenId].startDate;
     }
 }
