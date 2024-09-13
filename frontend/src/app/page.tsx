@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import WalletHeader from './components/HeaderWallet';
+
 
 const Page = () => {
   const router = useRouter();
@@ -20,47 +22,50 @@ const Page = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <img src="https://i.postimg.cc/BvRcsbg0/Caban-a.png" alt="Background" style={styles.backgroundImage} />
-      <div style={styles.overlay}>
-        <img src="https://i.postimg.cc/nz0mrLKr/Matriz-isotipo.jpg" alt="Matriz Isotipo" style={styles.isotipo} />
-        <img src="https://i.postimg.cc/cHsYd3nP/Comadre-Landing.png" alt="Comadre Landing" style={styles.comadreLanding} />
-        <h1 style={styles.slogan}>Cooperativa de impulso profesional</h1>
-        <div style={styles.buttonContainer}>
-          <button
-            onClick={handleBasicMode}
-            style={hovered === 0 ? { ...styles.button, ...styles.buttonHover } : styles.button}
-            onMouseEnter={() => setHovered(0)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            Continuar en Modo Básico
-          </button>
-          <button
-            onClick={handleCreateAccount}
-            style={hovered === 1 ? { ...styles.button, ...styles.buttonHover } : styles.button}
-            onMouseEnter={() => setHovered(1)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            Crear Cuenta
-          </button>
-          <button
-            onClick={handleLogin}
-            style={hovered === 2 ? { ...styles.button, ...styles.buttonHover } : styles.button}
-            onMouseEnter={() => setHovered(2)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            ¿Ya tienes cuenta? Iniciar Sesión
-          </button>
-        </div>
-        <img src="https://i.postimg.cc/tJJxxHD5/Matriz-Logo.png" alt="Matriz Logo" style={styles.logo} />
-        <div style={styles.infoLink}>
-          <p>
-            Para más información visita <a href="https://www.matriz.coop/" target="_blank" rel="noopener noreferrer">Matriz.coop</a>, 
-            código abierto disponible en <a href="https://github.com/Matriz-Coop" target="_blank" rel="noopener noreferrer">GitHub</a>.
-          </p>
+    <>
+      <WalletHeader /> {/* Incorpora el WalletHeader al principio del return */}
+      <div style={styles.container}>
+        <img src="https://i.postimg.cc/BvRcsbg0/Caban-a.png" alt="Background" style={styles.backgroundImage} />
+        <div style={styles.overlay}>
+          <img src="https://i.postimg.cc/nz0mrLKr/Matriz-isotipo.jpg" alt="Matriz Isotipo" style={styles.isotipo} />
+          <img src="https://i.postimg.cc/cHsYd3nP/Comadre-Landing.png" alt="Comadre Landing" style={styles.comadreLanding} />
+          <h1 style={styles.slogan}>Cooperativa de impulso profesional</h1>
+          <div style={styles.buttonContainer}>
+            <button
+              onClick={handleBasicMode}
+              style={hovered === 0 ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setHovered(0)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Continuar en Modo Básico
+            </button>
+            <button
+              onClick={handleCreateAccount}
+              style={hovered === 1 ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setHovered(1)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Crear Cuenta
+            </button>
+            <button
+              onClick={handleLogin}
+              style={hovered === 2 ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setHovered(2)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              ¿Ya tienes cuenta? Iniciar Sesión
+            </button>
+          </div>
+          <img src="https://i.postimg.cc/tJJxxHD5/Matriz-Logo.png" alt="Matriz Logo" style={styles.logo} />
+          <div style={styles.infoLink}>
+            <p>
+              Para más información visita <a href="https://www.matriz.coop/" target="_blank" rel="noopener noreferrer">Matriz.coop</a>, 
+              código abierto disponible en <a href="https://github.com/Matriz-Coop" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

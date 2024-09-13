@@ -8,7 +8,9 @@ const Perfil = () => {
   const router = useRouter();
 
   const handleClick = (path: string) => {
-    router.push(`/${path}`);
+    if (path === 'herramientas') {
+      router.push(`/${path}`);
+    }
   };
 
   return (
@@ -17,20 +19,26 @@ const Perfil = () => {
         {buttonsData.map((button, index) => (
           <div key={index} style={styles.buttonContainer}>
             <button
-              style={hovered === index ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              style={
+                button.label === 'Herramientas'
+                  ? hovered === index
+                    ? { ...styles.button, ...styles.buttonHover }
+                    : styles.button
+                  : styles.disabledButton
+              }
               onClick={() => handleClick(button.path)}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
+              disabled={button.label !== 'Herramientas'}
             >
               <img
                 src={button.imgSrc}
                 alt={button.label}
-                style={styles.buttonImage}
+                style={button.label === 'Herramientas' ? styles.buttonImage : styles.disabledImage}
               />
             </button>
             <p
-              style={styles.label}
-              onClick={() => handleClick(button.path)}
+              style={button.label === 'Herramientas' ? styles.label : styles.disabledLabel}
             >
               {button.label}
             </p>
@@ -98,6 +106,21 @@ const styles = {
     borderRadius: '50%',
     border: '2px solid #fff',
   },
+  disabledButton: {
+    width: '110px',
+    height: '110px',
+    borderRadius: '50%',
+    background: 'gray',
+    opacity: 0.6,
+    cursor: 'not-allowed',
+  },
+  disabledImage: {
+    width: '70px',
+    height: '70px',
+    borderRadius: '50%',
+    border: '2px solid #aaa',
+    filter: 'grayscale(100%)',
+  },
   label: {
     marginTop: '12px',
     fontSize: '14px',
@@ -105,6 +128,14 @@ const styles = {
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
     textAlign: 'center' as const,
     cursor: 'pointer',
+  },
+  disabledLabel: {
+    marginTop: '12px',
+    fontSize: '14px',
+    color: '#888',
+    textShadow: 'none',
+    textAlign: 'center' as const,
+    cursor: 'not-allowed',
   },
   buttonHover: {
     background: 'radial-gradient(circle, #8a5c30, #6e4c2a)', // Efecto hover
@@ -131,20 +162,26 @@ export default function PerfilWithHover() {
         {buttonsData.map((button, index) => (
           <div key={index} style={styles.buttonContainer}>
             <button
-              style={hovered === index ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              style={
+                button.label === 'Herramientas'
+                  ? hovered === index
+                    ? { ...styles.button, ...styles.buttonHover }
+                    : styles.button
+                  : styles.disabledButton
+              }
               onClick={() => handleClick(button.path)}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
+              disabled={button.label !== 'Herramientas'}
             >
               <img
                 src={button.imgSrc}
                 alt={button.label}
-                style={styles.buttonImage}
+                style={button.label === 'Herramientas' ? styles.buttonImage : styles.disabledImage}
               />
             </button>
             <p
-              style={styles.label}
-              onClick={() => handleClick(button.path)}
+              style={button.label === 'Herramientas' ? styles.label : styles.disabledLabel}
             >
               {button.label}
             </p>

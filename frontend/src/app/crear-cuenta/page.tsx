@@ -3,11 +3,19 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers'; // Importa ethers
 import { useRouter } from 'next/navigation';
+import WalletHeader from '../components/HeaderWallet';
 
 // Importa el ABI del contrato
 import contractABI from '../contracts/contractABI.json';
 
 const contractAddress = '0xF7C17BA66cA9bD9EC0C55Fb6bB21A069257C2f3A';
+
+// Precios por tipo de membresía
+const membershipPrices: Record<number, string> = {
+  1: '0.00333', // Básico
+  2: '0.0333',  // Intermedio
+  3: '0.0667'   // Avanzado
+};
 
 const CrearCuenta = () => {
   const router = useRouter();
@@ -21,7 +29,7 @@ const CrearCuenta = () => {
   async function requestAccount() {
     if (window.ethereum) {
       try {
-        let accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const _signer = provider.getSigner();
         const _address = accounts[0];
@@ -42,16 +50,25 @@ const CrearCuenta = () => {
   }
 
   // Función para mint (mintear) una membresía
-  const mintMembership = async (type: string) => {
+  const mintMembership = async (type: number) => {
     if (contract && signer) {
       try {
-        // Asumimos que el contrato tiene una función mintMembership que recibe una dirección y un tipo de membresía
-        const tx = await contract.mintMembership(address, type, { value: ethers.utils.parseEther("0.01") });
-
+        // Obtener el precio de la membresía basado en el tipo
+        const price = membershipPrices[type];
+        if (!price) {
+          throw new Error("Tipo de membresía no válido");
+        }
+  
+        // Convertir el precio a wei
+        const value = ethers.utils.parseEther(price);
+  
+        // Llamar a la función del contrato para mint (mintear)
+        const tx = await contract.mintMembership(type, { value });
+        
         // Espera a que la transacción se confirme
         const receipt = await tx.wait();
         console.log('Transacción confirmada:', receipt);
-
+  
         // Redirige a la página de confirmación
         router.push('/Confirmacion'); // Cambia a la ruta correcta de tu aplicación
       } catch (error) {
@@ -61,9 +78,9 @@ const CrearCuenta = () => {
       console.error("MetaMask no está conectada o contrato no está inicializado.");
     }
   };
-
+  
   // Función para manejar la selección de membresía y mintear
-  const handleSelectMembership = async (type: string) => {
+  const handleSelectMembership = async (type: number) => {
     if (!userConnected) {
       await requestAccount(); // Si no está conectada la cuenta, primero solicita la cuenta
     }
@@ -71,53 +88,56 @@ const CrearCuenta = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <button onClick={requestAccount}>Conectar Cuenta</button>
-      {userConnected && <p>Conectado como: {address}</p>}
+    <>
+      <WalletHeader onConnect={requestAccount} />
+      <div style={styles.container}>
+        <button onClick={requestAccount}>Conectar Cuenta</button>
+        {userConnected && <p>Conectado como: {address}</p>}
 
-      <img
-        src="https://i.postimg.cc/DwDwVLYJ/Whats-App-Image-2024-09-12-at-18-27-56.jpg"
-        alt="Background"
-        style={styles.backgroundImage}
-      />
-
-      <div style={styles.overlay}>
         <img
-          src="https://i.postimg.cc/y6P61wbz/Membresias2.png"
-          alt="Información de Membresías"
-          style={styles.membershipInfoImage}
+          src="https://i.postimg.cc/DwDwVLYJ/Whats-App-Image-2024-09-12-at-18-27-56.jpg"
+          alt="Background"
+          style={styles.backgroundImage}
         />
 
-        <div style={styles.memberships}>
-          <button
-            onClick={() => handleSelectMembership('Conexión')}
-            style={hovered === 0 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#f9dcfd' } : { ...styles.button, backgroundColor: '#f9dcfd' }}
-            onMouseEnter={() => setHovered(0)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            Suscribirse a Conexión
-          </button>
+        <div style={styles.overlay}>
+          <img
+            src="https://i.postimg.cc/y6P61wbz/Membresias2.png"
+            alt="Información de Membresías"
+            style={styles.membershipInfoImage}
+          />
 
-          <button
-            onClick={() => handleSelectMembership('Bienestar')}
-            style={hovered === 1 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#d2e4ea' } : { ...styles.button, backgroundColor: '#d2e4ea' }}
-            onMouseEnter={() => setHovered(1)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            Suscribirse a Bienestar
-          </button>
+          <div style={styles.memberships}>
+            <button
+              onClick={() => handleSelectMembership(1)}
+              style={hovered === 0 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#f9dcfd' } : { ...styles.button, backgroundColor: '#f9dcfd' }}
+              onMouseEnter={() => setHovered(0)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Suscribirse a Conexión
+            </button>
 
-          <button
-            onClick={() => handleSelectMembership('Expansión')}
-            style={hovered === 2 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#f7c374' } : { ...styles.button, backgroundColor: '#f7c374' }}
-            onMouseEnter={() => setHovered(2)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            Suscribirse a Expansión
-          </button>
+            <button
+              onClick={() => handleSelectMembership(2)}
+              style={hovered === 1 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#d2e4ea' } : { ...styles.button, backgroundColor: '#d2e4ea' }}
+              onMouseEnter={() => setHovered(1)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Suscribirse a Bienestar
+            </button>
+
+            <button
+              onClick={() => handleSelectMembership(3)}
+              style={hovered === 2 ? { ...styles.button, ...styles.buttonHover, backgroundColor: '#f7c374' } : { ...styles.button, backgroundColor: '#f7c374' }}
+              onMouseEnter={() => setHovered(2)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              Suscribirse a Expansión
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

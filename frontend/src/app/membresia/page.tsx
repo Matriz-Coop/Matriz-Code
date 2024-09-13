@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import WalletHeader from '../components/HeaderWallet';
 
 const Dashboard = () => {
   const router = useRouter();
@@ -16,6 +17,8 @@ const Dashboard = () => {
   };
 
   return (
+    <>
+    <WalletHeader /> {/* Incorpora el WalletHeader al principio del return */}
     <div style={styles.container}>
       <div style={styles.buttonsGrid}>
         {['Perfil', 'Comunidades'].map((label, index) => (
@@ -32,6 +35,7 @@ const Dashboard = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

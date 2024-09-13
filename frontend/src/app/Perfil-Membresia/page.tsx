@@ -153,5 +153,6 @@ export default function PerfilWithHover() {
       </div>
       <Sidebar />
     </div>
+
   );
 }
