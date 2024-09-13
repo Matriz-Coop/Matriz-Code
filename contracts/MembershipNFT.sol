@@ -72,6 +72,8 @@ contract MembershipNFT is ERC721, Ownable {
 
     // Función para verificar el tipo de membresía que tiene un usuario
     function getMembershipType(uint256 tokenId) external view returns (uint256) {
+        // msg.sender is tokenId owner.
+        // ownerOf()
         return uint256(membershipTypeByTokenId[tokenId]);
     }
 }

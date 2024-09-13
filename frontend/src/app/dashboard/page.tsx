@@ -1,4 +1,4 @@
-"use client"; // Asegúrate de que el componente sea client-side
+"use client";
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
@@ -7,22 +7,24 @@ const Dashboard = () => {
   const router = useRouter();
   const [hovered, setHovered] = React.useState<number | null>(null);
 
+  const handleClick = (path: string) => {
+    router.push(`/${path}`);
+  };
+
   return (
     <div style={styles.container}>
-      <div style={styles.buttons}>
+      <div style={styles.buttonsGrid}>
         {['Perfil', 'Comunidades'].map((label, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              if (label === 'Perfil') router.push('/perfil');
-              else router.push('/comunidades');
-            }}
-            style={hovered === index ? { ...styles.button, ...styles.buttonHover } : styles.button}
-            onMouseEnter={() => setHovered(index)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            {label}
-          </button>
+          <div key={index} style={styles.buttonContainer}>
+            <button
+              style={hovered === index ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onClick={() => handleClick(label.toLowerCase())}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {label}
+            </button>
+          </div>
         ))}
       </div>
     </div>
@@ -40,31 +42,39 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-  buttons: {
+  buttonsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '50px', // Espacio mayor entre los botones
+    marginTop: '-50px', // Ajustado para mejor alineación
+  },
+  buttonContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as const,
     alignItems: 'center',
-    width: '50%',
-    gap: '20px', // Espacio entre botones
-    padding: '20px',
+    cursor: 'pointer',
   },
   button: {
-    background: 'rgba(255, 255, 255, 0.1)', // Fondo semitransparente para igualar con el Sidebar
-    border: '2px solid rgba(255, 255, 255, 0.3)', 
+    width: '110px',  // Reducido aún más el ancho del botón
+    height: '110px', // Reducida la altura del botón
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, #6e4c2a, #4d3318)',
+    boxShadow: 'inset 5px 5px 15px rgba(0, 0, 0, 0.7), inset -5px -5px 15px rgba(255, 255, 255, 0.1)',
+    border: '3px solid #8a5c30',
     color: '#fff',
-    fontSize: '18px', // Tamaño de fuente igual al del Sidebar
+    fontSize: '13px', // Tamaño de fuente más pequeño
     cursor: 'pointer',
-    padding: '12px 20px',
-    borderRadius: '12px',
-    transition: 'all 0.3s ease',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-    width: '100%', // Asegura que el botón ocupe el espacio disponible
-    textAlign: 'center', // Centra el texto dentro del botón
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
+    textAlign: 'center',
+    padding: '10px',
   },
   buttonHover: {
-    background: 'rgba(255, 255, 255, 0.2)', // Efecto hover
-    transform: 'scale(1.05)', 
-    boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.3)',
+    background: 'radial-gradient(circle, #8a5c30, #6e4c2a)', // Efecto hover
+    transform: 'scale(1.1)',
+    boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.5)',
   },
 };
 

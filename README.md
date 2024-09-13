@@ -14,7 +14,7 @@ Este proyecto está siendo desarrollado en el marco del [Frutal Web House Hackat
 ## Tecnologías implementadas:
 
 - **Hardhat:** Integración de tecnología Blockchain para conexión con red de prueba de Soneium "Minato" y red de prueba de Core "Core Testnet"
-- - **Open Zeppelin:** Desarrollo de Contratos inteligentes estandarizados para manejo de Tokens No Fungibles ERC 721 y manejo de recompensas y staking ERC20. 
+- **Open Zeppelin:** Desarrollo de Contratos inteligentes estandarizados para manejo de Tokens No Fungibles ERC 721 y manejo de recompensas y staking ERC20. 
 - **NextJS:** Librerías de React para Desarrollo frontend , donde se gestiona la interfaz de usuario y la experiencia del usuario final.
   
 - **Pruebas de diseño:** La carpeta `antecedentes` contiene las pruebas iniciales de diseño para el Front-End en HTML, CSS y JS, y desarrollo de versión 1.0 con NextJs. 
