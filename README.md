@@ -1,6 +1,6 @@
 # MatrizApp
 
-[Encuentra las bitácoras de desarrollo aquí](https://github.com/ValenteCreativo/MatrizApp/wiki)
+[Encuentra las bitácoras de desarrollo aquí](https://github.com/Matriz-coop/Matriz-Code/wiki)
 
 ## Estructura del Código
 
@@ -10,13 +10,19 @@
 
 ## Acerca de Matriz
 
-**Matriz** es una infraestructura común entre trabajadores autónomos que buscamos aumentar el impacto de nuestro trabajo y nuestra calidad de vida a través de la colaboración entre nosotros.
+**Matriz** es una cooperativa de impulso profesional para freelancers, emprendedores y artistas que quieran acceder a prestaciones laborales, herramientas de trabajo y beneficios similares a los de un empleo corporativo. 
 
-Nuestra apuesta es que en conjunto podamos ofrecernos un mayor grado de seguridad, similar a la de un empleado, pero manteniendo la libertad y autonomía de un emprendedor y/o trabajador autónomo.
+Una nueva modalidad de trabajo que combina lo mejor de dos mundos: la seguridad de un empleado con la libertad de un emprendedor. 
 
-Esto, a través de un modelo de suscripción que permite obtener prestaciones laborales, herramientas de trabajo y beneficios como parte de una colectividad mutualista.
+Esto, a través de un modelo de suscripción que permite obtener paquetes de beneficios como parte de una colectividad mutualista. Además Matriz sirve también como un punto de encuentro digital para que personas con principios en común puedan encontrarse para colaborar y desarrollarse profesionalmente en comunidad.
 
-Matriz sirve también como espacio digital para que personas con principios en común puedan encontrarse para colaborar y desarrollarse profesionalmente en comunidad.
+## Membresías
+
+En Matriz, ofrecemos distintos tipos de membresías:
+
+- **Conexión**
+- **Bienestar**
+- **Expansión**
 
 ## En Construcción
 
@@ -34,13 +40,7 @@ Se planean implementar las siguientes tecnologías en **Matriz**:
 -  **Fondos de ahorro con rendimientos en Cripto**
 - Otras tecnologías por definir...
 
-## Membresías
 
-En Matriz, ofrecemos distintos tipos de membresías:
-
-- **Conexión**
-- **Bienestar**
-- **Expansión**
 
 //Actualmente estamos realizando estudios de mercado para definir las necesidades y costos reales
 

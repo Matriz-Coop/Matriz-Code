@@ -5,17 +5,25 @@ import { useRouter } from 'next/navigation';
 
 const Dashboard = () => {
   const router = useRouter();
+  const [hovered, setHovered] = React.useState<number | null>(null);
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Dashboard</h1>
       <div style={styles.buttons}>
-        <button onClick={() => router.push('/perfil')} style={styles.button}>
-          Perfil
-        </button>
-        <button onClick={() => router.push('/comunidades')} style={styles.button}>
-          Comunidades
-        </button>
+        {['Perfil', 'Comunidades'].map((label, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              if (label === 'Perfil') router.push('/perfil');
+              else router.push('/comunidades');
+            }}
+            style={hovered === index ? { ...styles.button, ...styles.buttonHover } : styles.button}
+            onMouseEnter={() => setHovered(index)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -32,27 +40,31 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-  title: {
-    color: '#fff',
-    fontSize: '36px',
-    marginBottom: '20px',
-  },
   buttons: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '50%',
-    marginTop: '20px',
+    gap: '20px', // Espacio entre botones
+    padding: '20px',
   },
   button: {
-    padding: '10px 20px',
-    fontSize: '16px',
-    borderRadius: '5px',
-    border: 'none',
-    cursor: 'pointer',
-    backgroundColor: '#0070f3',
+    background: 'rgba(255, 255, 255, 0.1)', // Fondo semitransparente para igualar con el Sidebar
+    border: '2px solid rgba(255, 255, 255, 0.3)', 
     color: '#fff',
-    margin: '5px',
+    fontSize: '18px', // Tamaño de fuente igual al del Sidebar
+    cursor: 'pointer',
+    padding: '12px 20px',
+    borderRadius: '12px',
+    transition: 'all 0.3s ease',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+    width: '100%', // Asegura que el botón ocupe el espacio disponible
+    textAlign: 'center', // Centra el texto dentro del botón
+  },
+  buttonHover: {
+    background: 'rgba(255, 255, 255, 0.2)', // Efecto hover
+    transform: 'scale(1.05)', 
+    boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.3)',
   },
 };
 
