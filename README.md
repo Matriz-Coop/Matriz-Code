@@ -1,12 +1,23 @@
 # MatrizApp
 
-[Encuentra las bitácoras de desarrollo aquí](https://github.com/Matriz-coop/Matriz-Code/wiki)
+Toda la evolución del proyecto se encuentra documentada en diferentes bitácoras:
 
-## Estructura del Código
+ [Encuentra las bitácoras de desarrollo aquí](https://github.com/Matriz-coop/Matriz-Code/wiki)
 
-- **Backend y Hardhat:** Las carpetas de desarrollo para el backend y Hardhat se encuentran dentro del directorio `packages`.
-- - **Pruebas de diseño:** La carpeta `antecedentes` contiene las pruebas iniciales de diseño para el Front-End. 
-- **Frontend:** El frontend está ubicado en `packages/nextjs/app`, donde se gestiona la interfaz de usuario y la experiencia del usuario final.
+ ## En Construcción
+
+Este proyecto está siendo desarrollado en el marco del [Frutal Web House Hackathon, Mérida 2024](https://devpost.com/software/zigoto) 
+
+
+---------------------------------------
+
+## Tecnologías implementadas:
+
+- **Hardhat:** Integración de tecnología Blockchain para conexión con red de prueba de Soneium "Minato" y red de prueba de Core "Core Testnet"
+- - **Open Zeppelin:** Desarrollo de Contratos inteligentes estandarizados para manejo de Tokens No Fungibles ERC 721 y manejo de recompensas y staking ERC20. 
+- **NextJS:** Librerías de React para Desarrollo frontend , donde se gestiona la interfaz de usuario y la experiencia del usuario final.
+  
+- **Pruebas de diseño:** La carpeta `antecedentes` contiene las pruebas iniciales de diseño para el Front-End en HTML, CSS y JS, y desarrollo de versión 1.0 con NextJs. 
 
 ## Acerca de Matriz
 
@@ -24,20 +35,18 @@ En Matriz, ofrecemos distintos tipos de membresías:
 - **Bienestar**
 - **Expansión**
 
-## En Construcción
+![Membresias2](https://github.com/user-attachments/assets/afd4aa05-6494-43f5-802c-a480061f857e)
 
-Este proyecto está siendo desarrollado en el marco del [Frutal Web House Hackathon, Mérida 2024](https://devpost.com/software/zigoto) 
 
-## Tecnologías Implementadas
+## Posibles tecnologías que añadiremos: 
 
-Se planean implementar las siguientes tecnologías en **Matriz**:
 
-- **Soneium Blockchain Infrastructure**
 - **DAO maker toolings**
-- **ZK Knowledge** : para proteger la data sensible del usuario
+- **ZK Knowledge**
 - **Push Protocol API**
-- **Integración de sistemas de pagos**
--  **Fondos de ahorro con rendimientos en Cripto**
+- **APIs de herramientas de trabajo como Clockify, Jitsi, Asana, etc**
+-  **Sistemas de rendimientos con $Xoc**
+  
 - Otras tecnologías por definir...
 
 
