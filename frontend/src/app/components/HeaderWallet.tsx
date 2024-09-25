@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import contractABI from "../contracts/contractABI.json"; // Importa el ABI desde contractABI.json
 
 const ConnectWallet = ({ onConnect }: { onConnect: (provider: ethers.providers.Web3Provider, signer: ethers.Signer) => void }) => {
   const [account, setAccount] = useState<string | null>(null);

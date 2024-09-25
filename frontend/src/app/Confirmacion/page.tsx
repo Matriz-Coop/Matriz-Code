@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; // Importar componente optimizado
 
 const Confirmacion = () => {
   const router = useRouter();
@@ -13,12 +14,26 @@ const Confirmacion = () => {
 
   return (
     <div style={styles.container}>
-      <img src="https://i.postimg.cc/BvRcsbg0/Caban-a.png" alt="Background" style={styles.backgroundImage} />
+      <Image
+        src="https://i.postimg.cc/BvRcsbg0/Caban-a.png"
+        alt="Background"
+        layout="fill"
+        objectFit="cover"
+        style={styles.backgroundImage}
+      />
       <div style={styles.overlay}>
-        <img src="https://i.postimg.cc/nz0mrLKr/Matriz-isotipo.jpg" alt="Matriz Isotipo" style={styles.isotipo} />
+        <Image
+          src="https://i.postimg.cc/nz0mrLKr/Matriz-isotipo.jpg"
+          alt="Matriz Isotipo"
+          width={130}
+          height={130}
+          style={styles.isotipo}
+        />
         <h1 style={styles.title}>¡Transacción Confirmada!</h1>
         <p style={styles.text}>¡Bienvenido/a a Matriz! ¡Te estábamos esperando!</p>
-        <p style={styles.text}>Accede a tus beneficios dando click en el botón "Dashboard".</p>
+        <p style={styles.text}>
+          Accede a tus beneficios dando click en el botón &quot;Dashboard&quot;.
+        </p>
         <div style={styles.buttonContainer}>
           <button
             onClick={handleDashboard}
@@ -37,29 +52,28 @@ const Confirmacion = () => {
 const styles = {
   container: {
     height: '100vh',
-    position: 'relative',
+    position: 'relative' as const, // Cambiado a 'as const'
     overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column' as const,
+    flexDirection: 'column' as const, // Cambiado a 'as const'
     justifyContent: 'center',
   },
   backgroundImage: {
-    position: 'absolute',
+    position: 'absolute' as const, // Cambiado a 'as const'
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
     zIndex: -1,
   },
   overlay: {
-    position: 'absolute',
+    position: 'absolute' as const, // Cambiado a 'as const'
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
     display: 'flex',
-    flexDirection: 'column' as const,
+    flexDirection: 'column' as const, // Cambiado a 'as const'
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 139, 0.6)', // Azul oscuro con más transparencia
@@ -69,12 +83,10 @@ const styles = {
     zIndex: 1,
   },
   isotipo: {
-    width: '130px',
-    height: '130px',
     clipPath: 'circle(40%)',
     border: '5px solid #fff',
     marginBottom: '10px',
-    objectFit: 'contain',
+    // Se eliminó objectFit ya que no es válido para el estilo
   },
   title: {
     color: '#fff',
@@ -84,12 +96,12 @@ const styles = {
   text: {
     color: '#fff',
     fontSize: '16px',
-    textAlign: 'center' as const,
+    textAlign: 'center' as const, // Cambiado a 'as const'
     marginBottom: '10px',
   },
   buttonContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as const, // Cambiado a 'as const'
     alignItems: 'center',
     width: '100%',
     maxWidth: '280px',
@@ -106,7 +118,7 @@ const styles = {
     transition: 'all 0.3s ease',
     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
     width: '100%',
-    textAlign: 'center',
+    textAlign: 'center' as const, // Cambiado a 'as const'
     margin: '8px 0',
   },
   buttonHover: {

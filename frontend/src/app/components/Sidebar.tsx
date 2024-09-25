@@ -17,11 +17,11 @@ const Sidebar = () => {
 
   // Mover buttonsData dentro del componente para que tenga acceso a router
   const buttonsData = [
-    { label: ' Volver', icon: '←', onClick: () => router.back() },
-    { label: ' Menú Principal', icon: '⌂', onClick: () => router.push('/dashboard') },
-    { label: ' Buscar', icon: '🔍', onClick: () => alert('Buscar') },
-    { label: ' Notificaciones', icon: '🔔', onClick: () => alert('Notificaciones') },
-    { label: ' Ajustes', icon: '⚙', onClick: () => alert('Ajustes') },
+    { label: 'Volver', icon: '←', onClick: () => router.back() },
+    { label: 'Menú Principal', icon: '⌂', onClick: () => router.push('/dashboard') },
+    { label: 'Buscar', icon: '🔍', onClick: () => alert('Buscar') },
+    { label: 'Notificaciones', icon: '🔔', onClick: () => alert('Notificaciones') },
+    { label: 'Ajustes', icon: '⚙', onClick: () => alert('Ajustes') },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Sidebar = () => {
               onClick={button.onClick}
             >
               <div style={styles.iconWrapper}>{button.icon}</div>
-              <div style={styles.buttonText}>{button.label}</div>
+              <div style={styles.buttonText}>{button.label}</div> {/* Aquí se aplica la corrección */}
             </button>
           ))}
         </div>
@@ -91,13 +91,13 @@ const styles = {
     fontSize: '18px',
     cursor: 'pointer',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as const, // Especificar el tipo exacto esperado por TypeScript
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase' as const, // Definir explícitamente que es un valor válido de TextTransform
     fontWeight: 'bold',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap' as const,
   },
   buttonHover: {
     background: 'radial-gradient(circle, #8a5c30, #6e4c2a)',
@@ -108,8 +108,8 @@ const styles = {
     marginBottom: '5px',
   },
   buttonText: {
-    fontSize: '14px', // Ajustar tamaño del texto para que se ajuste al nuevo tamaño del botón
-    textAlign: 'center',
+    fontSize: '14px', 
+    textAlign: 'center' as const, // Especificar que 'center' es un valor válido para TextAlign
   },
 };
 

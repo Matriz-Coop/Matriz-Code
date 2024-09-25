@@ -3,14 +3,26 @@
 import React from 'react';
 import { useRouter } from 'next/navigation'; // Usa este para la nueva carpeta app
 import Sidebar from '../components/Sidebar';
+import Image from 'next/image'; // Importa el componente Image de next/image
 
 const Perfil = () => {
   const router = useRouter();
+  const [hovered, setHovered] = React.useState<number | null>(null);
 
   const handleClick = (path: string) => {
-    if (path === 'herramientas') {
+    if (path === 'fondo-ahorro') {
+      window.location.href = 'https://dainty-horse-46fe4f.netlify.app/';
+    } else {
       router.push(`/${path}`);
     }
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setHovered(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(null);
   };
 
   return (
@@ -20,28 +32,23 @@ const Perfil = () => {
           <div key={index} style={styles.buttonContainer}>
             <button
               style={
-                button.label === 'Herramientas'
-                  ? hovered === index
-                    ? { ...styles.button, ...styles.buttonHover }
-                    : styles.button
-                  : styles.disabledButton
+                hovered === index
+                  ? { ...styles.button, ...styles.buttonHover }
+                  : styles.button
               }
               onClick={() => handleClick(button.path)}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
-              disabled={button.label !== 'Herramientas'}
             >
-              <img
+              <Image
                 src={button.imgSrc}
                 alt={button.label}
-                style={button.label === 'Herramientas' ? styles.buttonImage : styles.disabledImage}
+                style={styles.buttonImage}
+                width={70} // Añade un ancho fijo
+                height={70} // Añade una altura fija
               />
             </button>
-            <p
-              style={button.label === 'Herramientas' ? styles.label : styles.disabledLabel}
-            >
-              {button.label}
-            </p>
+            <p style={styles.label}>{button.label}</p>
           </div>
         ))}
       </div>
@@ -106,21 +113,6 @@ const styles = {
     borderRadius: '50%',
     border: '2px solid #fff',
   },
-  disabledButton: {
-    width: '110px',
-    height: '110px',
-    borderRadius: '50%',
-    background: 'gray',
-    opacity: 0.6,
-    cursor: 'not-allowed',
-  },
-  disabledImage: {
-    width: '70px',
-    height: '70px',
-    borderRadius: '50%',
-    border: '2px solid #aaa',
-    filter: 'grayscale(100%)',
-  },
   label: {
     marginTop: '12px',
     fontSize: '14px',
@@ -129,14 +121,6 @@ const styles = {
     textAlign: 'center' as const,
     cursor: 'pointer',
   },
-  disabledLabel: {
-    marginTop: '12px',
-    fontSize: '14px',
-    color: '#888',
-    textShadow: 'none',
-    textAlign: 'center' as const,
-    cursor: 'not-allowed',
-  },
   buttonHover: {
     background: 'radial-gradient(circle, #8a5c30, #6e4c2a)', // Efecto hover
     transform: 'scale(1.1)',
@@ -144,51 +128,4 @@ const styles = {
   },
 };
 
-// Aplica estilos de hover con React
-export default function PerfilWithHover() {
-  const [hovered, setHovered] = React.useState<number | null>(null);
-
-  const handleMouseEnter = (index: number) => {
-    setHovered(index);
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(null);
-  };
-
-  return (
-    <div style={styles.container}>
-      <div style={styles.buttonsGrid}>
-        {buttonsData.map((button, index) => (
-          <div key={index} style={styles.buttonContainer}>
-            <button
-              style={
-                button.label === 'Herramientas'
-                  ? hovered === index
-                    ? { ...styles.button, ...styles.buttonHover }
-                    : styles.button
-                  : styles.disabledButton
-              }
-              onClick={() => handleClick(button.path)}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-              disabled={button.label !== 'Herramientas'}
-            >
-              <img
-                src={button.imgSrc}
-                alt={button.label}
-                style={button.label === 'Herramientas' ? styles.buttonImage : styles.disabledImage}
-              />
-            </button>
-            <p
-              style={button.label === 'Herramientas' ? styles.label : styles.disabledLabel}
-            >
-              {button.label}
-            </p>
-          </div>
-        ))}
-      </div>
-      <Sidebar />
-    </div>
-  );
-}
+export default Perfil;

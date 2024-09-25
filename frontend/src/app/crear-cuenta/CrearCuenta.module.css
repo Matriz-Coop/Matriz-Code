@@ -1,0 +1,74 @@
+/* CrearCuenta.module.css */
+
+.container {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 139, 0.7);
+    border-radius: 0px;
+    z-index: 1;
+    text-align: center;
+  }
+  
+  .membershipInfoImage {
+    width: 95%;
+    max-width: 900px;
+    height: auto;
+    margin-bottom: 30px;
+  }
+  
+  .memberships {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .button {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 30%;
+    max-width: 200px;
+    margin: 0 10px;
+  }
+  
+  .buttonHover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  }
+  

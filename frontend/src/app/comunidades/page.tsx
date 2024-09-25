@@ -1,16 +1,25 @@
-'use client'; // Asegúrate de que el componente sea client-side
+'use client';
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import Sidebar from '../components/Sidebar'; // Importa el Sidebar
-import { FaForumbee, FaUsers, FaUser, FaRegHandshake, FaBriefcase, FaProjectDiagram, FaCalendar } from 'react-icons/fa'; // Importa íconos
+import Sidebar from '../components/Sidebar'; 
+import { FaForumbee, FaUsers, FaUser, FaRegHandshake, FaBriefcase, FaProjectDiagram, FaCalendar } from 'react-icons/fa';
+import Image from 'next/image';
+
+// Definición de tipos para los datos de los botones
+interface ButtonData {
+  label: string;
+  path: string;
+  icon: JSX.Element;
+  imgSrc: string;
+  style: React.CSSProperties; // Se asegura de que el estilo tenga el tipo correcto
+}
 
 const Comunidades = () => {
   const router = useRouter();
 
-  // Corrige la sintaxis de handleNavigation
   const handleNavigation = (path: string) => {
-    router.push(`/${path}`); // Ajuste realizado aquí
+    router.push(`/${path}`);
   };
 
   const [hovered, setHovered] = React.useState<number | null>(null);
@@ -24,41 +33,50 @@ const Comunidades = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.buttonsWrapper}>
-        <div style={styles.buttonsGrid}>
+    <div style={styles.container as React.CSSProperties}>
+      <div style={styles.buttonsWrapper as React.CSSProperties}>
+        <div style={styles.buttonsGrid as React.CSSProperties}>
           {buttonsData.map((button, index) => (
             <button
               key={index}
               onClick={() => handleNavigation(button.path)}
-              style={hovered === index ? { ...styles.button, ...styles.buttonHover, ...button.style } : { ...styles.button, ...button.style }}
+              style={hovered === index 
+                ? { ...styles.button, ...styles.buttonHover, ...button.style }
+                : { ...styles.button, ...button.style }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <div style={styles.iconWrapper}>
-                <img src={button.imgSrc} alt={button.label} style={styles.buttonImage} /> {/* Ajuste para usar imágenes */}
+              <div style={styles.iconWrapper as React.CSSProperties}>
+                <Image
+                  src={button.imgSrc}
+                  alt={button.label}
+                  width={70}
+                  height={70}
+                  style={styles.buttonImage as React.CSSProperties}
+                />
+                {button.icon}
               </div>
-              <div style={styles.buttonText}>
+              <div style={styles.buttonText as React.CSSProperties}>
                 {button.label}
               </div>
             </button>
           ))}
         </div>
       </div>
-      <Sidebar /> {/* Agrega el Sidebar */}
+      <Sidebar />
     </div>
   );
 };
 
-// Datos para los botones con coordenadas según la imagen
-const buttonsData = [
-  { label: 'Foros', path: 'foros', icon: <FaForumbee size={30} />, imgSrc: 'https://i.postimg.cc/bN9fNDBQ/Foros.png', style: { top: '2%', left: '36%' } }, // Rojo
-  { label: 'Comunidades', path: 'comunidades', icon: <FaUsers size={30} />, imgSrc: 'https://i.postimg.cc/gJLPYgCJ/communities.png', style: { top: '1%', left: '50%' } }, // Verde
-  { label: 'Perfiles', path: 'perfiles', icon: <FaUser size={30} />, imgSrc: 'https://i.postimg.cc/Sxx3SZ8h/profile.png', style: { top: '18%', left: '30%' } }, // Morado
-  { label: 'Grupos de mutualización', path: 'grupos-mutualizacion', icon: <FaRegHandshake size={30} />, imgSrc: 'https://i.postimg.cc/QMPRnpFr/grupos-de-mutualizacio-n.png', style: { top: '23%', left: '46%' } }, // Amarillo
-  { label: 'Bolsa de trabajo', path: 'bolsa-trabajo', icon: <FaBriefcase size={30} />, imgSrc: 'https://i.postimg.cc/fbLNPz5Y/bolsa-de-trabajo.png', style: { top: '23%', left: '7%' } }, // Azul
-  { label: 'Proyectos colaborativos', path: 'proyectos-colaborativos', icon: <FaProjectDiagram size={30} />, imgSrc: 'https://i.postimg.cc/FK2BxN6r/Proyectos-colaborativos.jpg', style: { top: '12%', left: '62%' } }, // Blanco
-  { label: 'Eventos', path: 'eventos', icon: <FaCalendar size={30} />, imgSrc: 'https://i.postimg.cc/8zTDhB6K/eventos.png', style: { top: '15%', left: '80%' } }, // Negro
+// Datos para los botones
+const buttonsData: ButtonData[] = [
+  { label: 'Foros', path: 'foros', icon: <FaForumbee size={30} />, imgSrc: 'https://i.postimg.cc/bN9fNDBQ/Foros.png', style: { top: '2%', left: '36%', position: 'absolute' } },
+  { label: 'Comunidades', path: 'comunidades', icon: <FaUsers size={30} />, imgSrc: 'https://i.postimg.cc/gJLPy8CJ/communities.png', style: { top: '1%', left: '50%', position: 'absolute' } },
+  { label: 'Perfiles', path: 'perfiles', icon: <FaUser size={30} />, imgSrc: 'https://i.postimg.cc/Sxx3SZ8h/profile.png', style: { top: '18%', left: '30%', position: 'absolute' } },
+  { label: 'Grupos de mutualización', path: 'grupos-mutualizacion', icon: <FaRegHandshake size={30} />, imgSrc: 'https://i.postimg.cc/QMPRnpFr/grupos-de-mutualizacio-n.png', style: { top: '23%', left: '46%', position: 'absolute' } },
+  { label: 'Bolsa de trabajo', path: 'bolsa-trabajo', icon: <FaBriefcase size={30} />, imgSrc: 'https://i.postimg.cc/fbLNPz5Y/bolsa-de-trabajo.png', style: { top: '23%', left: '7%', position: 'absolute' } },
+  { label: 'Proyectos colaborativos', path: 'proyectos-colaborativos', icon: <FaProjectDiagram size={30} />, imgSrc: 'https://i.postimg.cc/FK2BxN6r/Proyectos-colaborativos.jpg', style: { top: '12%', left: '62%', position: 'absolute' } },
+  { label: 'Eventos', path: 'eventos', icon: <FaCalendar size={30} />, imgSrc: 'https://i.postimg.cc/8zTDhB6K/eventos.png', style: { top: '15%', left: '80%', position: 'absolute' } },
 ];
 
 const styles = {
@@ -74,12 +92,12 @@ const styles = {
     backgroundPosition: 'center',
   },
   buttonsWrapper: {
-    position: 'relative' as const,
+    position: 'relative',
     width: '100%',
     height: '100%',
   },
   buttonsGrid: {
-    position: 'absolute' as const,
+    position: 'absolute',
     width: '100%',
     height: '100%',
   },
@@ -98,9 +116,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    whiteSpace: 'nowrap',
+    textTransform: 'uppercase' as const,
+    fontWeight: 'bold' as const,
+    whiteSpace: 'nowrap' as const,
     position: 'absolute' as const,
   },
   buttonHover: {
@@ -112,14 +130,12 @@ const styles = {
     marginBottom: '5px',
   },
   buttonImage: {
-    width: '70px',
-    height: '70px',
     borderRadius: '50%',
     border: '2px solid #fff',
   },
   buttonText: {
     fontSize: '10px',
-    textAlign: 'center',
+    textAlign: 'center' as const,
   },
 };
 

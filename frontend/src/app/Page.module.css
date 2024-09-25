@@ -1,0 +1,93 @@
+.container {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 139, 0.6);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .isotipo {
+    clip-path: circle(40%);
+    border: 5px solid #fff;
+    margin-bottom: 10px;
+    object-fit: contain;
+  }
+  
+  .comadreLanding {
+    margin-bottom: 10px;
+  }
+  
+  .slogan {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 280px;
+    margin-bottom: 15px;
+  }
+  
+  .button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: center;
+    margin: 8px 0;
+  }
+  
+  .buttonHover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .logo {
+    clip-path: circle(50%);
+    margin-bottom: 10px;
+    object-fit: contain;
+  }
+  
+  .infoLink {
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
